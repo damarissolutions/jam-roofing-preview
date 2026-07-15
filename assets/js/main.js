@@ -94,18 +94,32 @@
 			slider.addEventListener('mouseleave', restart);
 		});
 
-		/* ---- Featured video: load embed only on click (protects page speed) ---- */
-		document.querySelectorAll('.video-frame[data-embed]').forEach(function (frame) {
+		/* ---- Featured video: load only on click (protects page speed) ----
+		   Supports a YouTube/Vimeo embed OR a self-hosted MP4. Either way the
+		   poster image loads first and the video bytes are only fetched on click. */
+		document.querySelectorAll('.video-frame[data-embed], .video-frame[data-video]').forEach(function (frame) {
 			var btn = frame.querySelector('.video-play');
 			if (!btn) { return; }
 			btn.addEventListener('click', function () {
-				var iframe = document.createElement('iframe');
-				iframe.src = frame.getAttribute('data-embed');
-				iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
-				iframe.setAttribute('allowfullscreen', '');
-				iframe.title = 'JAM Roofing video';
+				var embed = frame.getAttribute('data-embed');
+				var src = frame.getAttribute('data-video');
+				var el;
+				if (embed) {
+					el = document.createElement('iframe');
+					el.src = embed;
+					el.allow = 'autoplay; encrypted-media; picture-in-picture';
+					el.setAttribute('allowfullscreen', '');
+					el.title = 'JAM Roofing video';
+				} else {
+					el = document.createElement('video');
+					el.src = src;
+					el.controls = true;
+					el.autoplay = true;
+					el.playsInline = true;
+					el.setAttribute('poster', frame.querySelector('.video-poster').getAttribute('src'));
+				}
 				frame.innerHTML = '';
-				frame.appendChild(iframe);
+				frame.appendChild(el);
 			});
 		});
 
