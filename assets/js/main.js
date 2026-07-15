@@ -23,6 +23,35 @@
 			});
 		}
 
+		/* ---- Hero background video ----
+		   Only fetched on larger screens and when motion is welcome. Phones and
+		   reduced-motion visitors keep the poster image, so they never download
+		   the clip. Always muted: browsers refuse to autoplay video with sound. */
+		var heroVideo = document.querySelector('.hero-video[data-src]');
+		if (heroVideo) {
+			var wantsMotion = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			var bigScreen = window.matchMedia('(min-width: 761px)').matches;
+			if (wantsMotion && bigScreen) {
+				heroVideo.muted = true; // belt-and-braces for autoplay policies
+				heroVideo.src = heroVideo.getAttribute('data-src');
+				var tryPlay = function () {
+					var playing = heroVideo.play();
+					// Rejections here are usually transient — e.g. Chromium pauses
+					// muted background media to save power when the tab is hidden.
+					// Swallow it and leave the poster showing; never tear the video
+					// out, or a page opened in a background tab would lose it for good.
+					if (playing && playing.catch) { playing.catch(function () {}); }
+				};
+				tryPlay();
+				// Retry once the tab is actually on screen.
+				document.addEventListener('visibilitychange', function () {
+					if (!document.hidden && heroVideo.paused) { tryPlay(); }
+				});
+			} else {
+				heroVideo.remove();
+			}
+		}
+
 		/* ---- Mobile dropdown toggles ---- */
 		document.querySelectorAll('.menu-item-has-children > a').forEach(function (link) {
 			link.addEventListener('click', function (e) {

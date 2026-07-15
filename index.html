@@ -53,7 +53,12 @@
 
 <main>
 
-<section class="hero">
+<section class="hero hero--image" style="background-image:linear-gradient(rgba(17,17,17,.55),rgba(17,17,17,.75)),url(assets/images/hero-poster.jpg)">
+	<!-- Muted is required: browsers block autoplay with sound. main.js only sets
+	     src on larger screens, so phones just show the poster image. -->
+	<video class="hero-video" autoplay muted loop playsinline preload="none"
+		poster="assets/images/hero-poster.jpg" data-src="assets/video/hero-bg.mp4"></video>
+	<span class="hero-video-scrim" aria-hidden="true"></span>
 	<div class="container hero-inner">
 		<p class="hero-eyebrow">Locally owned in Southern Oregon since 1996</p>
 		<h1 class="hero-headline">Protecting What Matters Most — From the Top Down</h1>
@@ -145,8 +150,8 @@
 
 <section class="video-feature" id="video"><div class="container">
 	<div class="section-head section-head--center"><p class="kicker">Watch</p><h2>Come see us in Medford</h2></div>
-	<div class="video-frame" data-video="assets/video/office-tour.mp4">
-		<img class="video-poster" src="assets/images/office-sign-detail.jpg" alt="Play video">
+	<div class="video-frame" data-video="assets/video/office-lounge.mp4">
+		<img class="video-poster" src="assets/images/lounge-poster.jpg" alt="Play video">
 		<button class="video-play" type="button" aria-label="Play video"><span class="video-play-ico">▶</span></button>
 	</div>
 </div></section>
