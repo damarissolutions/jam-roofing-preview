@@ -313,6 +313,9 @@ img { max-width: 100%; height: auto; display: block; }
 /* ---------- Inner / sub pages ---------- */
 .subpage-hero { position: relative; color: #fff; background: var(--ink); padding: clamp(3rem, 6vw, 5rem) 0; }
 .subpage-hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 120% at 85% 0%, rgba(210,34,42,.35) 0%, rgba(20,20,20,0) 55%), var(--ink); }
+/* With a header photo: the dark gradient lives in the inline background; keep only a subtle red glow on top so the photo shows. */
+.subpage-hero.has-photo { background-size: cover; background-position: center; background-repeat: no-repeat; }
+.subpage-hero.has-photo::before { background: radial-gradient(120% 120% at 85% 0%, rgba(210,34,42,.28) 0%, rgba(20,20,20,0) 58%); }
 .subpage-hero .container { position: relative; }
 .subpage-hero .crumbs { font-family: var(--head); font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--orange); font-size: .82rem; margin-bottom: .8rem; }
 .subpage-hero .crumbs a { color: var(--orange); }
