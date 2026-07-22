@@ -95,18 +95,32 @@
 				if (bq.dataset.clampReady) { return; }
 				bq.dataset.clampReady = '1';
 				bq.classList.add('is-clamped');
-				// Overflowing the 4-line clamp? Then offer a toggle.
+				// Overflowing the 4-line clamp? Add "Read more".
 				if (bq.scrollHeight - bq.clientHeight > 4) {
-					var btn = document.createElement('button');
-					btn.type = 'button';
-					btn.className = 'review-more';
-					btn.textContent = 'Read more';
-					btn.addEventListener('click', function () {
-						var expanded = bq.classList.toggle('is-expanded');
-						bq.classList.toggle('is-clamped', !expanded);
-						btn.textContent = expanded ? 'Read less' : 'Read more';
-					});
-					bq.parentNode.insertBefore(btn, bq.nextSibling);
+					var card = bq.closest('.review-card');
+					var url = card && card.getAttribute('data-review-url');
+					var el;
+					if (url) {
+						// Link straight to the review on Google.
+						el = document.createElement('a');
+						el.className = 'review-more';
+						el.href = url;
+						el.target = '_blank';
+						el.rel = 'noopener';
+						el.textContent = 'Read more on Google →';
+					} else {
+						// No Google URL (e.g. fallback reviews) — expand inline instead of hiding text.
+						el = document.createElement('button');
+						el.type = 'button';
+						el.className = 'review-more';
+						el.textContent = 'Read more';
+						el.addEventListener('click', function () {
+							var expanded = bq.classList.toggle('is-expanded');
+							bq.classList.toggle('is-clamped', !expanded);
+							el.textContent = expanded ? 'Read less' : 'Read more';
+						});
+					}
+					bq.parentNode.insertBefore(el, bq.nextSibling);
 				} else {
 					bq.classList.remove('is-clamped'); // short review — no clamp needed.
 				}
