@@ -89,6 +89,33 @@
 			});
 		});
 
+		/* ---- Review "Read more": clamp to 4 lines, add a toggle only where it overflows ---- */
+		function initReviewClamps() {
+			document.querySelectorAll('.review-card blockquote').forEach(function (bq) {
+				if (bq.dataset.clampReady) { return; }
+				bq.dataset.clampReady = '1';
+				bq.classList.add('is-clamped');
+				// Overflowing the 4-line clamp? Then offer a toggle.
+				if (bq.scrollHeight - bq.clientHeight > 4) {
+					var btn = document.createElement('button');
+					btn.type = 'button';
+					btn.className = 'review-more';
+					btn.textContent = 'Read more';
+					btn.addEventListener('click', function () {
+						var expanded = bq.classList.toggle('is-expanded');
+						bq.classList.toggle('is-clamped', !expanded);
+						btn.textContent = expanded ? 'Read less' : 'Read more';
+					});
+					bq.parentNode.insertBefore(btn, bq.nextSibling);
+				} else {
+					bq.classList.remove('is-clamped'); // short review — no clamp needed.
+				}
+			});
+		}
+		// Measure after webfonts load, or line heights are wrong.
+		if (document.fonts && document.fonts.ready) { document.fonts.ready.then(initReviewClamps); }
+		else { window.addEventListener('load', initReviewClamps); }
+
 		/* ---- Reviews slider (auto-cycling) ---- */
 		document.querySelectorAll('.review-slider').forEach(function (slider) {
 			var track = slider.querySelector('.review-track');
