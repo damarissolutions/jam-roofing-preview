@@ -90,6 +90,10 @@ img { max-width: 100%; height: auto; display: block; }
 .site-header.is-stuck { box-shadow: var(--shadow-sm); }
 .header-inner { display: flex; align-items: center; gap: 24px; min-height: 78px; }
 .custom-logo, .custom-logo-link img { max-height: 56px; width: auto; }
+.logo-link { display: inline-flex; }
+.jam-logo-img { height: 54px; width: auto; display: block; }
+.jam-logo-img--footer { height: 60px; }
+@media (max-width: 760px) { .jam-logo-img { height: 42px; } }
 .logo-fallback { display: flex; flex-direction: column; line-height: 1; }
 .logo-jam { font-family: var(--head); font-weight: 800; font-size: 2rem; color: var(--red); letter-spacing: .02em; }
 .logo-sub { font-family: var(--head); font-weight: 700; font-size: .82rem; text-transform: uppercase; letter-spacing: .14em; color: var(--ink); }
@@ -263,6 +267,11 @@ img { max-width: 100%; height: auto; display: block; }
 .review-dots button { width: 11px; height: 11px; border-radius: 50%; border: 0; background: rgba(255,255,255,.4); cursor: pointer; padding: 0; }
 .review-dots button.is-active { background: #fff; transform: scale(1.2); }
 .reviews-cta { text-align: center; margin-top: 1.8rem; }
+.review-time { display: block; font-weight: 500; color: #ffd9d9; font-size: .82rem; margin-top: 2px; }
+.reviews-rating { display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: .6rem 0 0; }
+.reviews-rating-num { font-family: var(--head); font-weight: 800; font-size: 2rem; color: #fff; line-height: 1; }
+.reviews-rating-stars { color: #ffd14a; font-size: 1.25rem; letter-spacing: 2px; }
+.reviews-rating-label { color: #ffe2e2; font-weight: 600; font-size: .95rem; }
 
 /* ---------- Contact ---------- */
 .contact { background: var(--cream); padding: clamp(3.5rem, 7vw, 6rem) 0; }
@@ -309,6 +318,7 @@ img { max-width: 100%; height: auto; display: block; }
 .page-lead .container { max-width: 860px; }
 .page-lead h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-top: 2rem; }
 .page-lead p { color: var(--ink-soft); font-size: 1.06rem; }
+.page-lead .lead-intro { font-size: 1.2rem; font-weight: 500; color: var(--ink); }
 .feature-list { list-style: none; padding: 0; margin: 1.5rem 0; display: grid; gap: 12px; }
 .feature-list li { padding-left: 30px; position: relative; color: var(--ink-soft); }
 .feature-list li::before { content: "\2713"; position: absolute; left: 0; top: 0; color: var(--red); font-weight: 800; }
